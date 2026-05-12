@@ -12,12 +12,14 @@
 
 from playwright.sync_api import sync_playwright
 from Locator_Register import RegisterSGM
+import os
+HEADLESS = os.environ.get("CI", "").lower() == "true"
 
 URL = "https://www.generasimaju.co.id/klub-generasi-maju/register?referral=https://www.generasimaju.co.id/klub-generasi-maju"
 
 
 def _setup_browser(p):
-    browser = p.chromium.launch(headless=False)
+    browser = p.chromium.launch(headless=HEADLESS)
     page = browser.new_page()
     return browser, page
 

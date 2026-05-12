@@ -9,12 +9,14 @@
 
 from playwright.sync_api import sync_playwright
 from Locator_Register import RegisterSGM
+import os
+HEADLESS = os.environ.get("CI", "").lower() == "true"
 
 
 def test_register_phone_prefix_tidak_valid():
     print("\n[SKENARIO] Register dengan nomor ponsel prefix tidak valid")
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=HEADLESS)
         page = browser.new_page()
 
         sgm = RegisterSGM(page)

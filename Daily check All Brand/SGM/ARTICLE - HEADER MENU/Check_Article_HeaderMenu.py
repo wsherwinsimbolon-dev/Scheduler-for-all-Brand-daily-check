@@ -11,6 +11,8 @@
 
 from playwright.sync_api import sync_playwright
 from Locator_Article import ArticlePage
+import os
+HEADLESS = os.environ.get("CI", "").lower() == "true"
 
 CATEGORIES = [
     {"key": "bunda", "label": "Bunda"},
@@ -44,7 +46,7 @@ def check_articles_on_page(locator, category_label, topik_name, page_num, summar
 
 def check_all_articles():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=HEADLESS)
         page = browser.new_page()
 
         summary = {"total": 0, "errors": []}

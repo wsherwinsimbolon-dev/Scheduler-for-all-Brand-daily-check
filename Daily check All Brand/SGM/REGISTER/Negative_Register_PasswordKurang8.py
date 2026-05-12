@@ -8,12 +8,14 @@
 
 from playwright.sync_api import sync_playwright
 from Locator_Register import RegisterSGM
+import os
+HEADLESS = os.environ.get("CI", "").lower() == "true"
 
 
 def test_register_password_kurang8():
     print("\n[SKENARIO] Register dengan password kurang dari 8 karakter")
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=HEADLESS)
         page = browser.new_page()
 
         sgm = RegisterSGM(page)

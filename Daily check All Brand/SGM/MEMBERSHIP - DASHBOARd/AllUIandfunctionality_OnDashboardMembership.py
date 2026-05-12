@@ -8,13 +8,15 @@
 
 from playwright.sync_api import sync_playwright
 from Locator_Dasboard_Menu import MembershipDashboard
+import os
+HEADLESS = os.environ.get("CI", "").lower() == "true"
 
 # ─────────────────────────────────────────
 # FUNGSI UTAMA
 # ─────────────────────────────────────────
 def login():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=HEADLESS)
         page = browser.new_page()
 
         # Buat objek dulu, url & goto sudah otomatis di dalam __init__

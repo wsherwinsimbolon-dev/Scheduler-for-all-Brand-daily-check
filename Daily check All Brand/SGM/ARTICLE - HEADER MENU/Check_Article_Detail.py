@@ -18,6 +18,8 @@
 
 from playwright.sync_api import sync_playwright
 from Locator_Article import ArticlePage, ArticleDetailPage
+import os
+HEADLESS = os.environ.get("CI", "").lower() == "true"
 
 
 def collect_links(browser):
@@ -96,7 +98,7 @@ def print_report(summary):
 
 if __name__ == "__main__":
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=HEADLESS)
 
         links   = collect_links(browser)
         summary = check_all_details(browser, links)
